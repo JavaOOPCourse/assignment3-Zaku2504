@@ -1,35 +1,30 @@
-public class CloudStorageService extends Service
-        implements PremiumFeature, Billable {
+public class CloudStorageService extends Service implements PremiumFeature, Billable {
 
-    // TODO: declare premium field
+    private boolean isPremium = false;
 
-
-    // TODO: constructor
-
+    public CloudStorageService(String serviceName, int serviceID) {
+        super(serviceName, serviceID);
+    }
 
     @Override
     public void performService() {
-
-        // TODO:
-        // check if active
-        // print cloud access message
-
+        if (isActive) {
+            String status = isPremium ? "Премиум" : "Стандарт";
+            System.out.println("CloudStorageService: Синхронизация файлов в облаке (Режим: " + status + ")...");
+        } else {
+            System.out.println("CloudStorageService: Ошибка. Сервис не активирован.");
+        }
     }
 
     @Override
     public void upgradeToPremium() {
-
-        // TODO:
-        // enable premium
-        // print message
-
+        this.isPremium = true;
+        System.out.println("CloudStorageService: Лимит хранилища увеличен до 10 ТБ!");
     }
 
     @Override
     public void generateBill() {
-
-        // TODO:
-        // print billing message
-
+        double cost = isPremium ? 15.99 : 9.99;
+        System.out.println("CloudStorageService: Сгенерирован счет на сумму $" + cost);
     }
 }
